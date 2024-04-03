@@ -1,13 +1,16 @@
 import random
 
+
 def choose_word():
     words = ["python", "home", "friend", "food", "word", "love", "time", "family", "School", "money", "health"]
     return random.choice(words)
+
 
 def jumble_word(word):
     jumbled_word = list(word)
     random.shuffle(jumbled_word)
     return ''.join(jumbled_word)
+
 
 def main():
     total_score = 0
@@ -36,6 +39,7 @@ def main():
     if games_played > 0:
         average_score = total_score / games_played
         print("Average score:", average_score)
+
 
 if __name__ == "__main__":
     main()
