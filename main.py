@@ -6,7 +6,7 @@ def choose_word():
     return random.choice(words)
 
 
-def jumble_word(word):
+def decode_it(word):
     jumbled_word = list(word)
     random.shuffle(jumbled_word)
     return ''.join(jumbled_word)
@@ -19,8 +19,8 @@ def main():
     play_again = True
     while play_again:
         word = choose_word()
-        jumbled = jumble_word(word)
-        print("Jumbled word:", jumbled)
+        jumbled = decode_it(word)
+        print("Decode It:", jumbled)
 
         guess = input("Guess the word: ").lower()
 
