@@ -26,8 +26,8 @@ def main():
 
         if guess == word:
             print("Congratulations! That's correct.")
-            total_score += 10
-            print("point earned: 10")
+            total_score += 1
+            print("point earned: 1")
         else:
             print("Sorry, that's incorrect. The word was:", word)
 
