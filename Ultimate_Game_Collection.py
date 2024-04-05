@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import simpledialog
+from tkinter import messagebox, simpledialog
 import random
 import statistics
 
@@ -9,9 +8,8 @@ class GameMenu(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Game Menu")
-        self.geometry("700x500") # Window size
-        self.configure(bg="lightblue") # background colour
-
+        self.geometry("700x500")  # Window size
+        self.configure(bg="lightblue")  # background colour
 
         self.label = tk.Label(self, text="Select a Game to Play:", font=("Eccentric Std", 30), bg="lightgrey")
         self.label.pack(pady=20)
@@ -24,7 +22,8 @@ class GameMenu(tk.Tk):
         ]
 
         for game_name, game_func in self.games:
-            button = tk.Button(self, text=game_name, command=game_func, font=("Rosewood Std Regular", 20), bg="lightgreen", fg="black", width=20)
+            button = tk.Button(self, text=game_name, command=game_func, font=("Rosewood Std Regular", 20),
+                               bg="lightgreen", fg="black", width=20)
             button.pack(pady=10)
 
     def play_decode_it(self):
@@ -55,23 +54,39 @@ class DecodeIt(tk.Toplevel):
         self.geometry("700x500")  # Window size
         self.configure(bg="lightblue")  # background colour
 
-        self.word = self.choose_word()
-        self.jumbled_word = self.decode_it(self.word)
-
-        self.label = tk.Label(self, text=f'Decode the Word: {self.jumbled_word}', font=("Arial", 16), bg="lightblue")
-        self.label.pack(pady=10)
-
-        self.entry = tk.Entry(self, font=("Arial", 14))
-        self.entry.pack(pady=10)
-
-        self.check_button = tk.Button(self, text="Check", command=self.check_guess, font=("Arial", 14), bg="lightgreen",
-                                      fg="black", width=10)
-        self.check_button.pack(pady=10)
-
         self.total_score = 0
         self.games_played = 0
 
         self.play_round()
+
+    def play_round(self):
+        self.word = self.choose_word()
+        self.jumbled_word = self.decode_it(self.word)
+
+        label = tk.Label(self, text=f'Decode the Word: {self.jumbled_word}', font=("Arial", 16), bg="lightblue")
+        label.pack(pady=10)
+
+        entry = tk.Entry(self, font=("Arial", 14))
+        entry.pack(pady=10)
+
+        def check_guess():
+            guess = entry.get().lower()
+            if guess == self.word:
+                messagebox.showinfo("Correct!", "Congratulations! That's correct.")
+            else:
+                messagebox.showerror("Incorrect!", f"Sorry, that's incorrect. The word was: {self.word}")
+
+            self.games_played += 1
+            play_again = messagebox.askyesno("Play Again", "Do you want to play again?")
+            if play_again:
+                self.destroy()
+                self.play_round()
+            else:
+                self.show_score()
+
+        check_button = tk.Button(self, text="Check", command=check_guess, font=("Arial", 14), bg="lightgreen",
+                                 fg="black", width=10)
+        check_button.pack(pady=10)
 
     def choose_word(self):
         words = ["python", "home", "friend", "food", "word", "love", "time", "family", "School", "money", "health"]
@@ -82,33 +97,10 @@ class DecodeIt(tk.Toplevel):
         random.shuffle(jumbled_word)
         return ''.join(jumbled_word)
 
-    def play_round(self):
-        word = self.choose_word()
-        jumbled = self.decode_it(word)
-        print("Decode It:", jumbled)
-
-        guess = tk.simpledialog.askstring("Guess the Word", "Guess the word:")
-
-        def check_guess(self):
-            guess = self.entry_guess.get().lower()
-            if guess == self.word:
-                tk.messagebox.showinfo("Correct!", "Congratulations! That's correct.")
-            else:
-                tk.messagebox.showerror("Incorrect!", f"Sorry, that's incorrect. The word was: {self.word}")
-
-
-
-        self.games_played += 1
-        play_again = messagebox.askyesno("Play Again", "Do you want to play again?")
-        if play_again:
-            self.play_round()
-        else:
-            self.show_score()
-
     def show_score(self):
         messagebox.showinfo("Game Over",
                             f"Total score: {self.total_score}\nAverage score: {self.total_score / self.games_played:.2f}")
-        self.master.show()
+        self.master.deiconify()
 
 
 class DiceRoll(tk.Toplevel):
@@ -126,7 +118,7 @@ class DiceRoll(tk.Toplevel):
 
     def play_round(self):
         try:
-            num = tk.simpledialog.askinteger("Number of Dice Rolls", "Enter the number of dice rolls:")
+            num = simpledialog.askinteger("Number of Dice Rolls", "Enter the number of dice rolls:")
             if num is None or num <= 0:
                 return  # Exit if user cancels or provides invalid input
 
@@ -139,7 +131,7 @@ class DiceRoll(tk.Toplevel):
         except ValueError as e:
             print("Invalid input:", e)
 
-        play_again = tk.messagebox.askyesno("Play Again", "Do you want to play again?")
+        play_again = messagebox.askyesno("Play Again", "Do you want to play again?")
         if play_again:
             self.play_round()
         else:
@@ -150,9 +142,8 @@ class DiceRoll(tk.Toplevel):
             average_score = self.total_score / self.games_played
         else:
             average_score = 0
-        tk.messagebox.showinfo("Game Over", f"Total score: {self.total_score}\nAverage score: {average_score:.2f}")
-        self.master.show()
-        # Game code goes here
+        messagebox.showinfo("Game Over", f"Total score: {self.total_score}\nAverage score: {average_score:.2f}")
+        self.master.deiconify()
 
 
 class JamaicanTrivia(tk.Toplevel):
@@ -183,7 +174,7 @@ class JamaicanTrivia(tk.Toplevel):
         start_choice = messagebox.askyesno("Start Quiz", "Do you want to start the quiz?")
         if not start_choice:
             messagebox.showinfo("Goodbye!", "Goodbye!")
-            self.master.show()
+            self.master.deiconify()
             return
 
         for question in self.questions:
@@ -215,8 +206,7 @@ class JamaicanTrivia(tk.Toplevel):
 
     def display_score(self):
         messagebox.showinfo("Total Score", f"Total Score: {self.score}")
-        self.master.show()
-        # Game code
+        self.master.deiconify()
 
 
 class MathQuiz(tk.Toplevel):
@@ -237,7 +227,7 @@ class MathQuiz(tk.Toplevel):
         num1 = random.randint(1, 100)
         num2 = random.randint(1, 100)
         # Prompt the user with the question
-        user_answer = tk.simpledialog.askinteger("Math Quiz", f"What is the sum of {num1} and {num2}?")
+        user_answer = simpledialog.askinteger("Math Quiz", f"What is the sum of {num1} and {num2}?")
         # Check if the user's answer is correct
         if user_answer is not None:
             if user_answer == num1 + num2:
@@ -266,7 +256,6 @@ class MathQuiz(tk.Toplevel):
                                 f"Mean Score: {mean_score}\nMode Score: {mode_score}\nMedian Score: {median_score}")
         else:
             messagebox.showinfo("Scores", "No scores recorded.")
-        # Game code goes here
 
 
 if __name__ == "__main__":
