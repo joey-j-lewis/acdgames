@@ -52,6 +52,22 @@ class DecodeIt(tk.Toplevel):
         super().__init__(master)
         self.title("Decode It")
 
+        self.geometry("700x500")  # Window size
+        self.configure(bg="lightblue")  # background colour
+
+        self.word = self.choose_word()
+        self.jumbled_word = self.decode_it(self.word)
+
+        self.label = tk.Label(self, text=f'Decode the Word: {self.jumbled_word}', font=("Arial", 16), bg="lightblue")
+        self.label.pack(pady=10)
+
+        self.entry = tk.Entry(self, font=("Arial", 14))
+        self.entry.pack(pady=10)
+
+        self.check_button = tk.Button(self, text="Check", command=self.check_guess, font=("Arial", 14), bg="lightgreen",
+                                      fg="black", width=10)
+        self.check_button.pack(pady=10)
+
         self.total_score = 0
         self.games_played = 0
 
@@ -73,12 +89,14 @@ class DecodeIt(tk.Toplevel):
 
         guess = tk.simpledialog.askstring("Guess the Word", "Guess the word:")
 
-        if guess and guess.lower() == word:
-            messagebox.showinfo("Correct", "Congratulations! That's correct.")
-            self.total_score += 1
-            print("Point earned: 1")
-        else:
-            messagebox.showinfo("Incorrect", f"Sorry, that's incorrect. The word was: {word}")
+        def check_guess(self):
+            guess = self.entry_guess.get().lower()
+            if guess == self.word:
+                tk.messagebox.showinfo("Correct!", "Congratulations! That's correct.")
+            else:
+                tk.messagebox.showerror("Incorrect!", f"Sorry, that's incorrect. The word was: {self.word}")
+
+
 
         self.games_played += 1
         play_again = messagebox.askyesno("Play Again", "Do you want to play again?")
@@ -97,6 +115,9 @@ class DiceRoll(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Dice Roll")
+
+        self.geometry("700x500")  # Window size
+        self.configure(bg="lightblue")  # background colour
 
         self.total_score = 0
         self.games_played = 0
@@ -138,6 +159,9 @@ class JamaicanTrivia(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Jamaican Trivia")
+
+        self.geometry("700x500")  # Window size
+        self.configure(bg="lightblue")  # background colour
 
         self.score = 0
         self.questions = {
@@ -199,6 +223,10 @@ class MathQuiz(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Math Quiz")
+
+        self.geometry("700x500")  # Window size
+        self.configure(bg="lightblue")  # background colour
+
         self.scores = []
         self.num_questions = 0
 
