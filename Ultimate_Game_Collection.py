@@ -50,20 +50,17 @@ class DecodeIt(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Decode It")
-
         self.geometry("700x500")  # Window size
         self.configure(bg="lightblue")  # background colour
-
         self.total_score = 0
         self.games_played = 0
-
         self.play_round()
 
     def play_round(self):
         self.word = self.choose_word()
         self.jumbled_word = self.decode_it(self.word)
 
-        label = tk.Label(self, text=f'Decode the Word: {self.jumbled_word}', font=("Arial", 16), bg="lightblue")
+        label = tk.Label(master=self, text=f'Decode the Word: {self.jumbled_word}', font=("Arial", 16), bg="lightblue")
         label.pack(pady=10)
 
         entry = tk.Entry(self, font=("Arial", 14))
@@ -72,21 +69,45 @@ class DecodeIt(tk.Toplevel):
         def check_guess():
             guess = entry.get().lower()
             if guess == self.word:
+                self.total_score += 1
+                self.update_score_label()
                 messagebox.showinfo("Correct!", "Congratulations! That's correct.")
             else:
                 messagebox.showerror("Incorrect!", f"Sorry, that's incorrect. The word was: {self.word}")
 
             self.games_played += 1
-            play_again = messagebox.askyesno("Play Again", "Do you want to play again?")
-            if play_again:
-                self.destroy()
-                self.play_round()
-            else:
-                self.show_score()
 
-        check_button = tk.Button(self, text="Check", command=check_guess, font=("Arial", 14), bg="lightgreen",
-                                 fg="black", width=10)
+        check_button = tk.Button(self, text="Check", command=check_guess, font=("Arial", 14),
+                                 bg="lightgreen", fg="black", width=10)
         check_button.pack(pady=10)
+
+        def play_again():
+            # Reset game state
+            entry.delete(0, tk.END)
+            self.word = self.choose_word()
+            self.jumbled_word = self.decode_it(self.word)
+            label.config(text=f'Decode the Word: {self.jumbled_word}')
+            self.update_score_label()
+
+        play_again_button = tk.Button(self, text="Play Again", command=play_again, font=("Arial", 14),
+                                      bg="lightblue", fg="black", width=10)
+        play_again_button.pack(pady=10)
+
+        stop_playing_button = tk.Button(self, text="Stop Playing", command=self.stop_playing, font=("Arial", 14),
+                                        bg="lightcoral", fg="black", width=12)
+        stop_playing_button.pack(pady=10)
+
+        # Label to display the current score
+        self.score_label = tk.Label(self, text=f'Score: {self.total_score}/{self.games_played}',
+                                    font=("Arial", 14), bg="lightblue")
+        self.score_label.pack(pady=10)
+
+    def update_score_label(self):
+        self.score_label.config(text=f'Score: {self.total_score}/{self.games_played}')
+
+    def stop_playing(self):
+        self.master.deiconify()
+        self.destroy()
 
     def choose_word(self):
         words = ["python", "home", "friend", "food", "word", "love", "time", "family", "School", "money", "health"]
@@ -97,23 +118,15 @@ class DecodeIt(tk.Toplevel):
         random.shuffle(jumbled_word)
         return ''.join(jumbled_word)
 
-    def show_score(self):
-        messagebox.showinfo("Game Over",
-                            f"Total score: {self.total_score}\nAverage score: {self.total_score / self.games_played:.2f}")
-        self.master.deiconify()
-
 
 class DiceRoll(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Dice Roll")
-
         self.geometry("700x500")  # Window size
         self.configure(bg="lightblue")  # background colour
-
         self.total_score = 0
         self.games_played = 0
-
         self.play_round()
 
     def play_round(self):
@@ -124,8 +137,6 @@ class DiceRoll(tk.Toplevel):
 
             rolls = [random.randint(1, 6) for _ in range(num)]
             total = sum(rolls)
-            print("Dice rolls:", rolls)
-            print("Total score:", total)
             self.total_score += total
             self.games_played += 1
         except ValueError as e:
@@ -143,30 +154,16 @@ class DiceRoll(tk.Toplevel):
         else:
             average_score = 0
         messagebox.showinfo("Game Over", f"Total score: {self.total_score}\nAverage score: {average_score:.2f}")
-        self.master.deiconify()
+        self.master.show()
 
 
 class JamaicanTrivia(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Jamaican Trivia")
-
         self.geometry("700x500")  # Window size
         self.configure(bg="lightblue")  # background colour
-
         self.score = 0
-        self.questions = {
-            "What is the capital of Jamaica?": ["A) Kingston", "B) Montego Bay", "C) Ocho Rios", "D) Negril"],
-            "Which famous reggae musician is from Jamaica?": ["A) Bob Marley", "B) Jimmy Cliff", "C) Peter Tosh",
-                                                              "D) Shaggy"],
-            "What is Jamaica's national dish?": ["A) Jerk Chicken", "B) Ackee and Saltfish", "C) Curry Goat",
-                                                 "D) Escovitch Fish"],
-            "Which Jamaican sprinter holds the world record for the 100m dash?": ["A) Usain Bolt", "B) Asafa Powell",
-                                                                                  "C) Yohan Blake",
-                                                                                  "D) Shelly-Ann Fraser-Pryce"],
-            "What is the currency of Jamaica?": ["A) Dollar", "B) Peso", "C) Euro", "D) Pound"]
-        }
-
         self.play()
 
     def play(self):
@@ -174,7 +171,7 @@ class JamaicanTrivia(tk.Toplevel):
         start_choice = messagebox.askyesno("Start Quiz", "Do you want to start the quiz?")
         if not start_choice:
             messagebox.showinfo("Goodbye!", "Goodbye!")
-            self.master.deiconify()
+            self.master.show()
             return
 
         for question in self.questions:
@@ -206,29 +203,23 @@ class JamaicanTrivia(tk.Toplevel):
 
     def display_score(self):
         messagebox.showinfo("Total Score", f"Total Score: {self.score}")
-        self.master.deiconify()
+        self.master.show()
 
 
 class MathQuiz(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Math Quiz")
-
         self.geometry("700x500")  # Window size
         self.configure(bg="lightblue")  # background colour
-
         self.scores = []
         self.num_questions = 0
-
         self.play()
 
     def generate_question(self):
-        # Generate two random numbers for the question
         num1 = random.randint(1, 100)
         num2 = random.randint(1, 100)
-        # Prompt the user with the question
         user_answer = simpledialog.askinteger("Math Quiz", f"What is the sum of {num1} and {num2}?")
-        # Check if the user's answer is correct
         if user_answer is not None:
             if user_answer == num1 + num2:
                 messagebox.showinfo("Correct", "Correct!")
