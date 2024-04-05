@@ -4,6 +4,7 @@ from tkinter import simpledialog
 import random
 import statistics
 
+
 class GameMenu(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -41,6 +42,7 @@ class GameMenu(tk.Tk):
 
     def hide(self):
         self.withdraw()
+
 
 class DecodeIt(tk.Toplevel):
     def __init__(self, master):
@@ -83,8 +85,10 @@ class DecodeIt(tk.Toplevel):
             self.show_score()
 
     def show_score(self):
-        messagebox.showinfo("Game Over", f"Total score: {self.total_score}\nAverage score: {self.total_score / self.games_played:.2f}")
+        messagebox.showinfo("Game Over",
+                            f"Total score: {self.total_score}\nAverage score: {self.total_score / self.games_played:.2f}")
         self.master.show()
+
 
 class DiceRoll(tk.Toplevel):
     def __init__(self, master):
@@ -126,11 +130,11 @@ class DiceRoll(tk.Toplevel):
         self.master.show()
         # Game code goes here
 
+
 class JamaicanTrivia(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Jamaican Trivia")
-
 
         self.score = 0
         self.questions = {
@@ -187,6 +191,7 @@ class JamaicanTrivia(tk.Toplevel):
         self.master.show()
         # Game code
 
+
 class MathQuiz(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
@@ -231,6 +236,7 @@ class MathQuiz(tk.Toplevel):
         else:
             messagebox.showinfo("Scores", "No scores recorded.")
         # Game code goes here
+
 
 if __name__ == "__main__":
     app = GameMenu()
