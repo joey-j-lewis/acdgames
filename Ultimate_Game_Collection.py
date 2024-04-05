@@ -9,9 +9,12 @@ class GameMenu(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Game Menu")
+        self.geometry("900x800") # Window size
+        self.configure(bg="lightblue") # background colour
 
-        self.label = tk.Label(self, text="Select a Game to Play:")
-        self.label.pack()
+
+        self.label = tk.Label(self, text="Select a Game to Play:", font=("Eccentric Std", 30), bg="lightgrey")
+        self.label.pack(pady=20)
 
         self.games = [
             ("Decode It", self.play_decode_it),
@@ -21,8 +24,8 @@ class GameMenu(tk.Tk):
         ]
 
         for game_name, game_func in self.games:
-            button = tk.Button(self, text=game_name, command=game_func)
-            button.pack()
+            button = tk.Button(self, text=game_name, command=game_func, font=("Rosewood Std Regular", 20), bg="lightgreen")
+            button.pack(pady=10)
 
     def play_decode_it(self):
         self.hide()
