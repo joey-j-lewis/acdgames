@@ -9,7 +9,7 @@ class GameMenu(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Game Menu")
-        self.geometry("900x800") # Window size
+        self.geometry("700x500") # Window size
         self.configure(bg="lightblue") # background colour
 
 
@@ -24,7 +24,7 @@ class GameMenu(tk.Tk):
         ]
 
         for game_name, game_func in self.games:
-            button = tk.Button(self, text=game_name, command=game_func, font=("Rosewood Std Regular", 20), bg="lightgreen")
+            button = tk.Button(self, text=game_name, command=game_func, font=("Rosewood Std Regular", 20), bg="lightgreen", fg="black", width=20)
             button.pack(pady=10)
 
     def play_decode_it(self):
