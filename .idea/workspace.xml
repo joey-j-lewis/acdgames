@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de941f4d-c9d1-4ac1-9fdf-228306902e1b" name="Changes" comment="new commit" />
+    <list default="true" id="de941f4d-c9d1-4ac1-9fdf-228306902e1b" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ultimate_Game_Collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ultimate_Game_Collection.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,6 +81,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Ultimate_Game_Collection" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -223,15 +231,31 @@
       <option name="project" value="LOCAL" />
       <updated>1712285868555</updated>
     </task>
-    <task id="LOCAL-00017" summary="new commit">
+    <task id="LOCAL-00017" summary="Initial commit">
       <option name="closed" value="true" />
-      <created>1712286308291</created>
+      <created>1712326423976</created>
       <option name="number" value="00017" />
       <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1712286308291</updated>
+      <updated>1712326423976</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1712338190715</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712338190715</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1712351100613</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1712351100613</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,8 +270,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial commit" />
     <MESSAGE value="new commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="new commit" />
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
 </project>
