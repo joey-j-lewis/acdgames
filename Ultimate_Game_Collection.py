@@ -216,6 +216,10 @@ class JamaicanTrivia(tk.Toplevel):
         self.score_label = tk.Label(self, text=f"Score: {self.score}", font=("Arial", 14))
         self.score_label.pack()
 
+        self.exit_button = tk.Button(self, text="Exit", command=self.exit_game, font=("Arial", 14),
+                                     bg="lightgreen", fg="black", width=10)
+        self.exit_button.pack(pady=10)
+
         self.ask_question()
 
     def ask_question(self):
@@ -257,13 +261,10 @@ class JamaicanTrivia(tk.Toplevel):
 
     def display_score(self):
         messagebox.showinfo("Quiz Complete", f"Your final score is {self.score}!")
-        self.destroy()  # Close the application
 
-
-import tkinter as tk
-from tkinter import simpledialog, messagebox
-import random
-import statistics
+    def exit_game(self):
+        self.master.deiconify()
+        self.destroy()
 
 
 class MathQuiz(tk.Toplevel):
@@ -360,6 +361,7 @@ class MathQuiz(tk.Toplevel):
         self.exit_button.config(state=tk.NORMAL)
 
     def exit_game(self):
+        self.master.deiconify()
         self.destroy()
 
 if __name__ == "__main__":
