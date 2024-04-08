@@ -246,7 +246,7 @@ class JamaicanTrivia(tk.Toplevel):
 
     def check_answer(self):
         if self.selected_answer.get() == self.correct_answer:
-            self.score += 1
+            self.score += 10
             messagebox.showinfo("Correct!", "That's the right answer!")
         else:
             messagebox.showinfo("Incorrect!", f"Sorry, the correct answer was {self.correct_answer}.")
@@ -260,11 +260,17 @@ class JamaicanTrivia(tk.Toplevel):
         self.destroy()  # Close the application
 
 
+import tkinter as tk
+from tkinter import simpledialog, messagebox
+import random
+import statistics
+
+
 class MathQuiz(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
         self.title("Math Quiz")
-        self.geometry("700x500")  # Window size
+        self.geometry("700x700")  # Window size
         self.configure(bg="lightblue")  # background colour
         self.scores = []
         self.num_questions = 0
@@ -272,9 +278,6 @@ class MathQuiz(tk.Toplevel):
         self.generate_question()
 
     def setup_ui(self):
-        self.question_label = tk.Label(self, text="Welcome to Math Quiz", font=("Arial", 20), bg="lightblue")
-        self.question_label.pack(pady=20)
-
         self.question_label = tk.Label(self, text="", font=("Arial", 16), bg="lightblue")
         self.question_label.pack(pady=20)
 
@@ -289,6 +292,14 @@ class MathQuiz(tk.Toplevel):
                                            bg="lightgreen", fg="black", width=10, state=tk.DISABLED)
         self.play_again_button.pack(pady=10)
 
+        self.stop_button = tk.Button(self, text="Stop Game", command=self.stop_game, font=("Arial", 14),
+                                     bg="lightgreen", fg="black", width=10)
+        self.stop_button.pack(pady=10)
+
+        self.exit_button = tk.Button(self, text="Exit", command=self.exit_game, font=("Arial", 14),
+                                     bg="lightgreen", fg="black", width=10)
+        self.exit_button.pack(pady=10)
+
         self.result_label = tk.Label(self, text="", font=("Arial", 14), bg="lightblue")
         self.result_label.pack(pady=10)
 
@@ -297,6 +308,15 @@ class MathQuiz(tk.Toplevel):
 
         self.score_label = tk.Label(self, text="Score: 0", font=("Arial", 14), bg="lightblue")
         self.score_label.pack(pady=10)
+
+        self.mean_label = tk.Label(self, text="", font=("Arial", 14), bg="lightblue")
+        self.mean_label.pack(pady=5)
+
+        self.mode_label = tk.Label(self, text="", font=("Arial", 14), bg="lightblue")
+        self.mode_label.pack(pady=5)
+
+        self.median_label = tk.Label(self, text="", font=("Arial", 14), bg="lightblue")
+        self.median_label.pack(pady=5)
 
     def generate_question(self):
         num1 = random.randint(1, 100)
@@ -316,6 +336,9 @@ class MathQuiz(tk.Toplevel):
                 self.incorrect_label.config(text=f"Correct answer: {self.correct_answer}")
             self.num_questions += 1
             self.score_label.config(text=f"Score: {len(self.scores)}")
+            self.mean_label.config(text=f"Mean Score: {statistics.mean(self.scores)}")
+            self.mode_label.config(text=f"Mode Score: {statistics.mode(self.scores)}")
+            self.median_label.config(text=f"Median Score: {statistics.median(self.scores)}")
             self.check_button.config(state=tk.DISABLED)
             self.play_again_button.config(state=tk.NORMAL)
         else:
@@ -329,6 +352,15 @@ class MathQuiz(tk.Toplevel):
         self.check_button.config(state=tk.NORMAL)
         self.play_again_button.config(state=tk.DISABLED)
 
+    def stop_game(self):
+        self.mean_label.config(text=f"Mean Score: {statistics.mean(self.scores)}")
+        self.mode_label.config(text=f"Mode Score: {statistics.mode(self.scores)}")
+        self.median_label.config(text=f"Median Score: {statistics.median(self.scores)}")
+        self.stop_button.config(state=tk.DISABLED)
+        self.exit_button.config(state=tk.NORMAL)
+
+    def exit_game(self):
+        self.destroy()
 
 if __name__ == "__main__":
     app = GameMenu()
